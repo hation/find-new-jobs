@@ -1,0 +1,296 @@
+# 统一Excel列名映射配置
+# 基于anti-job和jd-job经验沉淀
+# 16个标准列名，完全匹配anti-job格式
+
+version: "1.0.0"
+last_updated: "2026-05-22"
+description: "统一Excel列名映射配置，确保所有项目使用相同的Excel格式"
+
+# 标准列定义（16列）
+standard_columns:
+  - name: "序号"
+    description: "自动生成的序号，从1开始"
+    required: true
+    source: "auto_increment"
+    default_value: ""
+    validation: "必须是正整数"
+    
+  - name: "岗位ID"
+    description: "岗位唯一标识符"
+    required: true
+    source: ["position_id", "id", "job_id", "positionId"]
+    default_value: ""
+    validation: "不能为空"
+    
+  - name: "岗位名称"
+    description: "岗位名称/标题"
+    required: true
+    source: ["position_name", "name", "title", "positionName"]
+    default_value: ""
+    validation: "不能为空"
+    
+  - name: "岗位类别"
+    description: "岗位类型/类别"
+    required: true
+    source: ["job_type", "category", "type", "jobType"]
+    default_value: ""
+    validation: "不能为空"
+    
+  - name: "工作地点"
+    description: "工作城市/地点"
+    required: true
+    source: ["work_location", "location", "city", "workCity"]
+    default_value: "未知"
+    validation: "不能为空"
+    
+  - name: "发布时间"
+    description: "岗位发布时间"
+    required: true
+    source: ["publish_date", "created_at", "post_time", "formatPublishTime"]
+    default_value: "未知"
+    validation: "日期格式"
+    
+  - name: "所属部门"
+    description: "部门/事业部"
+    required: true
+    source: ["department", "dept", "company_department", "positionDeptName"]
+    default_value: ""
+    validation: "不能为空"
+    
+  - name: "学历要求"
+    description: "学历要求（自动提取）"
+    required: false
+    source: ["education_requirement", "education", "degree", "qualification"]
+    extraction_logic: "extract_education_level"
+    default_value: "学历不限"
+    validation: "标准学历等级"
+    
+  - name: "工作经验"
+    description: "工作经验（自动提取）"
+    required: false
+    source: ["work_experience", "experience", "years_experience", "qualification"]
+    extraction_logic: "extract_experience_range"
+    default_value: "经验不限"
+    validation: "标准经验范围"
+    
+  - name: "岗位要求"
+    description: "任职要求/资格"
+    required: false
+    source: ["position_requirements", "requirements", "qualifications", "qualification"]
+    default_value: ""
+    validation: ""
+    
+  - name: "岗位描述"
+    description: "工作内容/描述"
+    required: false
+    source: ["position_description", "description", "job_description", "workContent"]
+    default_value: ""
+    validation: ""
+    
+  - name: "岗位标签"
+    description: "标签（自动生成）"
+    required: false
+    source: "auto_generate"
+    extraction_logic: "generate_tags_from_data"
+    default_value: ""
+    validation: ""
+    
+  - name: "岗位代码"
+    description: "招聘代码/编号"
+    required: false
+    source: ["recruitment_number", "job_code", "code", "reqNumber"]
+    default_value: ""
+    validation: ""
+    
+  - name: "是否收藏"
+    description: "是否收藏（默认'否'）"
+    required: false
+    source: "default"
+    default_value: "否"
+    validation: "必须是'是'或'否'"
+    
+  - name: "数据来源"
+    description: "数据来源（公司名称+官网）"
+    required: true
+    source: "auto_generate"
+    template: "{company_name}招聘官网"
+    default_value: ""
+    validation: "不能为空"
+    
+  - name: "类别名称"
+    description: "类别名称（同岗位类别）"
+    required: false
+    source: ["job_type", "category"]
+    default_value: ""
+    validation: ""
+
+# 数据提取规则
+extraction_rules:
+  education_levels:
+    - keyword: "博士"
+      level: "博士"
+    - keyword: "硕士"
+      level: "硕士"
+    - keyword: "研究生"
+      level: "硕士"
+    - keyword: "本科"
+      level: "本科"
+    - keyword: "学士"
+      level: "本科"
+    - keyword: "大专"
+      level: "大专"
+    - keyword: "专科"
+      level: "大专"
+    - keyword: "高中"
+      level: "高中"
+    - keyword: "中专"
+      level: "中专"
+    - keyword: "初中"
+      level: "初中"
+    - keyword: "小学"
+      level: "小学"
+    default: "学历不限"
+    
+  experience_patterns:
+    - pattern: "(\d+)[\+-]?\s*年"
+      logic: "extract_years_range"
+    - keyword: "不限"
+      value: "经验不限"
+    - keyword: "无要求"
+      value: "经验不限"
+    - keyword: "应届"
+      value: "应届生"
+    - keyword: "实习"
+      value: "实习生"
+    - keyword: "在校"
+      value: "在校生"
+    default: "经验不限"
+    
+  tag_generation:
+    sources:
+      - field: "work_location"
+        prefix: ""
+      - field: "department"
+        prefix: ""
+      - field: "job_type"
+        prefix: ""
+    special_tags:
+      - condition: "is_hot == 1"
+        tag: "热门岗位"
+      - condition: "is_urgent == 1"
+        tag: "紧急招聘"
+    separator: ", "
+
+# 工作表配置
+sheet_config:
+  # 标准工作表（7个）
+  standard_sheets:
+    - name: "所有岗位"
+      type: "main"
+      description: "所有岗位的完整信息"
+      required: true
+      
+    - name: "地点分布"
+      type: "statistics"
+      description: "工作地点统计分析"
+      source_field: "工作地点"
+      required: true
+      
+    - name: "类别分布"
+      type: "statistics"
+      description: "岗位类别统计分析"
+      source_field: "岗位类别"
+      required: true
+      
+    - name: "学历分布"
+      type: "statistics"
+      description: "学历要求统计分析"
+      source_field: "学历要求"
+      required: true
+      
+    - name: "部门分布"
+      type: "statistics"
+      description: "所属部门统计分析"
+      source_field: "所属部门"
+      required: true
+      
+    - name: "经验要求"
+      type: "statistics"
+      description: "工作经验统计分析"
+      source_field: "工作经验"
+      required: true
+      
+    - name: "数据摘要"
+      type: "summary"
+      description: "数据基本信息汇总"
+      required: true
+  
+  # 可选工作表
+  optional_sheets:
+    - name: "原始数据"
+      type: "raw"
+      description: "原始JSON数据"
+      condition: "include_raw_data == true"
+      
+    - name: "时间趋势"
+      type: "trend"
+      description: "发布时间趋势分析"
+      condition: "has_publish_date == true"
+      
+    - name: "薪资分布"
+      type: "salary"
+      description: "薪资范围分析"
+      condition: "has_salary_field == true"
+
+# 文件命名规则
+naming_rules:
+  excel_pattern: "{company}_international_positions_{timestamp}.xlsx"
+  csv_pattern: "{company}_positions_simple_{timestamp}.csv"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  
+  # 公司名称处理
+  company_name_processing:
+    - action: "lowercase"
+    - action: "replace_spaces_with_underscores"
+    - action: "remove_special_chars"
+
+# 质量验证配置
+quality_validation:
+  min_completeness: 0.8
+  required_columns: 16
+  auto_validation: true
+  generate_quality_report: true
+  
+  validation_rules:
+    - rule: "column_count"
+      condition: ">= 16"
+      message: "必须包含16个标准列"
+      
+    - rule: "required_columns_not_null"
+      columns: ["序号", "岗位ID", "岗位名称", "岗位类别", "工作地点", "发布时间", "所属部门"]
+      message: "必需列不能为空"
+      
+    - rule: "data_completeness"
+      threshold: 0.8
+      message: "数据完整率必须达到80%以上"
+
+# 错误处理配置
+error_handling:
+  missing_column_action: "auto_fill"
+  invalid_data_action: "log_and_continue"
+  conversion_failure_action: "create_backup_and_retry"
+  
+  backup_config:
+    enabled: true
+    max_backups: 3
+    backup_dir: "backup/conversion_failures"
+
+# 使用说明
+usage_instructions: |
+  1. 新项目直接使用此配置
+  2. 历史项目使用转换工具
+  3. 确保所有项目输出相同的Excel格式
+  4. 定期验证数据质量
+  
+  【重要】此配置是anti-job和jd-job项目经验的沉淀，
+  确保所有招聘数据爬取项目输出完全一致的Excel格式。

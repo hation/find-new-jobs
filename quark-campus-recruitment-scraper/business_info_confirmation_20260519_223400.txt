@@ -1,0 +1,25 @@
+# 夸克项目业务信息确认报告
+生成时间: Tue May 19 22:34:00 CST 2026
+生成者: xingan
+会话ID: 71361
+
+## 关键业务信息确认
+
+### 1. 网址信息
+- 列表页URL: https://talent.quark.cn/off-campus/position-list
+- 详情页模板: https://talent.quark.cn/off-campus/position-detail?lang=zh&positionId={positionId}
+
+### 2. 业务目标
+- 目标岗位数: 92个
+- 筛选类别: 7个 (产品类、运营类、数据类、市场拓展、销售类、游戏类、金融类)
+- 每页数量: 10个
+
+### 3. 数据规范
+- 核心字段: 12个
+- 默认策略: direct_url
+- 浏览器配置: profile='openclaw'
+
+## 确认声明
+我确认已读取并理解上述业务信息，将在本次会话中基于这些信息进行决策和执行。
+
+确认时间: Tue May 19 22:34:00 CST 2026

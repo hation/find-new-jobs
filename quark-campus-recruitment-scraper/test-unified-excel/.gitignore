@@ -1,0 +1,87 @@
+# 环境文件
+.env
+.venv
+venv/
+env/
+pythonenv*
+
+# 日志文件
+logs/*.log
+*.log
+*.log.*
+
+# 输出文件
+output/*
+!output/.gitkeep
+data/*
+!data/.gitkeep
+
+# 备份文件
+backup/*
+*.bak
+*.backup
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 配置文件（包含敏感信息）
+config/api_auth.json
+config/local_*.json
+config/*.key
+config/*.secret
+
+# 测试相关
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 大文件
+*.zip
+*.tar.gz
+*.7z
+
+# 文档生成
+docs/_build/
+docs/source/generated/
+
+# 浏览器自动化
+playwright-report/
+test-results/

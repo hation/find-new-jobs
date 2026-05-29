@@ -1,0 +1,10 @@
+夸克项目会话标记
+会话开始时间: Tue May 19 22:34:00 CST 2026
+业务信息加载时间: Tue May 19 22:34:00 CST 2026
+加载器版本: 1.0
+确认报告: business_info_confirmation_20260519_223400.txt
+业务信息摘要:
+  - 列表页URL: https://talent.quark.cn/off-campus/position-list
+  - 目标岗位: 92个
+  - 筛选类别: 7个
+  - 默认策略: direct_url

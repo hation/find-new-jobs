@@ -1,0 +1,19 @@
+# 夸克校园招聘爬虫依赖
+
+# 数据处理
+pandas>=1.5.0
+openpyxl>=3.0.0
+
+# 配置管理
+pyyaml>=6.0
+
+# 日志
+colorlog>=6.7.0
+
+# 工具库
+python-dateutil>=2.8.0
+tqdm>=4.65.0  # 进度条
+
+# 网络请求
+requests>=2.28.0
+beautifulsoup4>=4.11.0

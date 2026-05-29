@@ -1,0 +1,22 @@
+夸克校园招聘数据文件清单
+==================================================
+生成时间: 2026-05-20 12:13:25
+数据目录: output/quark_page1_20260520_114738
+岗位总数: 93 个
+
+文件列表:
+- quark_page_6_raw.json (24.5 KB)
+- quark_page_7_raw.json (27.9 KB)
+- quark_page_1_raw.json (25.1 KB)
+- quark_page_10_raw.json (8.0 KB)
+- quark_positions_all_20260520_121323.xlsx (72.0 KB)
+- quark_page_5_raw.json (25.9 KB)
+- quark_page_4_raw.json (24.8 KB)
+- quark_positions_simple_20260520_121323.csv (9.9 KB)
+- crawl_summary.json (1.0 KB)
+- files_list.txt (0.0 KB)
+- quark_page_8_raw.json (25.2 KB)
+- quark_page_9_raw.json (24.4 KB)
+- quark_page_2_raw.json (27.6 KB)
+- quark_page_3_raw.json (26.1 KB)
+- all_positions_processed.json (181.9 KB)

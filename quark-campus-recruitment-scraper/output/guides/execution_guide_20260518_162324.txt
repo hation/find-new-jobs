@@ -1,0 +1,32 @@
+执行指南 - 夸克校园招聘数据爬取
+
+已完成:
+✅ 1. 筛选条件正确应用 (7个类别，93个岗位)
+✅ 2. 列表页结构分析完成
+✅ 3. 详情页字段提取逻辑验证
+✅ 4. 浏览器交互验证完成
+
+待执行:
+🔧 1. 实现第1页前5个岗位的详情页数据提取
+🔧 2. 切换到第2页
+🔧 3. 实现第2页前5个岗位的详情页数据提取
+🔧 4. 合并10个岗位数据
+🔧 5. 生成JSON、Excel、报告文件
+
+技术要点:
+- 列表页标签页ID: t5
+- 下一页按钮ref: e65
+- 岗位点击: 使用text selector
+- 详情页字段提取: 从快照中解析
+- 反爬延迟: 2-3秒/操作
+
+执行命令示例:
+1. 点击岗位: browser act targetId=t5 request='{"kind":"click","selector":"text=\"岗位名称\""}'
+2. 获取标签页: browser tabs
+3. 获取详情页快照: browser snapshot targetId=详情页标签页
+4. 提取字段: 解析快照文本
+
+输出文件:
+- JSON: quark_real_pages_1_2_${TIMESTAMP}.json
+- 报告: quark_real_pages_1_2_report_${TIMESTAMP}.txt
+- Excel: quark_real_pages_1_2_${TIMESTAMP}.xlsx (需pandas)

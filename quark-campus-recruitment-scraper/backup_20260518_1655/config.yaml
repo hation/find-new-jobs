@@ -1,0 +1,137 @@
+# 夸克校园招聘爬虫配置
+
+# 爬虫配置
+scraper:
+  # 目标岗位数量
+  max_positions: 92
+  
+  # 需要爬取的类别
+  categories:
+    - "产品类"
+    - "运营类"
+    - "数据类"
+    - "市场拓展"
+    - "销售类"
+    - "游戏类"
+    - "金融类"
+  
+  # 每页显示数量（根据网站实际情况调整）
+  page_size: 20
+  
+  # 数据字段配置
+  fields:
+    required:
+      - "岗位名称"
+      - "办公地点"
+      - "职位描述"
+      - "岗位id"
+      - "岗位详情链接"
+    optional:
+      - "更新时间"
+      - "职位类别"
+      - "所属部门"
+      - "学历要求"
+      - "工作年限"
+      - "职位要求"
+      - "页码"
+
+# 浏览器配置
+browser:
+  # 是否使用无头模式（调试时可设为false）
+  headless: false
+  
+  # 页面加载超时（秒）
+  timeout: 30
+  
+  # 重试次数
+  retry_count: 3
+  
+  # 用户代理（随机选择）
+  user_agents:
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+
+# 反爬机制配置
+anti_scraping:
+  # 页面间延迟（秒）
+  delay_min: 1.0
+  delay_max: 3.0
+  
+  # 详情页延迟（秒）
+  detail_delay_min: 0.5
+  detail_delay_max: 1.5
+  
+  # 是否随机移动鼠标
+  random_mouse_moves: true
+  
+  # 是否随机滚动页面
+  random_scrolls: true
+  
+  # 最大并发请求数（控制速度）
+  max_concurrent: 2
+
+# 日志配置
+logging:
+  # 日志级别：DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  
+  # 日志文件路径
+  file_path: "./logs/scraper.log"
+  
+  # 是否输出到控制台
+  console: true
+
+# 输出配置
+output:
+  # 输出目录
+  directory: "./output"
+  
+  # 文件名前缀
+  filename_prefix: "quark_positions"
+  
+  # 文件格式
+  excel_format: "xlsx"
+  
+  # 是否包含时间戳
+  include_timestamp: true
+  
+  # Excel列宽配置
+  column_widths:
+    "岗位id": 15
+    "岗位名称": 30
+    "办公地点": 20
+    "职位描述": 50
+    "职位要求": 50
+    "所属部门": 25
+    "学历要求": 15
+    "工作年限": 15
+    "岗位详情链接": 40
+    "页码": 10
+
+# 验证配置
+validation:
+  # 是否启用严格验证
+  strict_mode: false
+  
+  # 允许跳过的最大岗位数
+  max_skip_positions: 10
+  
+  # 数据验证规则
+  rules:
+    "岗位名称":
+      required: true
+      min_length: 2
+      max_length: 100
+    "办公地点":
+      required: true
+      min_length: 2
+    "职位描述":
+      required: true
+      min_length: 10
+    "岗位id":
+      required: true
+      pattern: "^[a-zA-Z0-9_-]+$"
+    "岗位详情链接":
+      required: true
+      pattern: "^https?://.+"
