@@ -1,0 +1,12 @@
+{
+  "_comment": "字节跳动API认证配置模板。复制本文件为 bytedance_config.json 并填入真实值。签名和cookie会过期（几小时到一天），过期后从浏览器Network面板刷新：打开 jobs.bytedance.com → F12 → Network → 找到 search/job/posts 请求 → 复制URL里的 _signature 和请求头 cookie 中的各键值对。",
+  "_signature": "HXAbHgAAAACf8JI-xcS04h1wGwAAHfc",
+  "cookies": {
+    "locale": "zh-CN",
+    "channel": "office",
+    "platform": "pc",
+    "s_v_web_id": "xxx",
+    "device-id": "xxx",
+    "ttwid": "xxx"
+  }
+}
