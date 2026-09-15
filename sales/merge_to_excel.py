@@ -35,7 +35,7 @@ def clean(value):
 
 
 def main():
-    platforms = ["didi", "meituan", "anti", "quark", "bytedance", "tencent", "lenovo"]
+    platforms = ["didi", "meituan", "anti", "quark", "bytedance", "tencent", "lenovo", "inspur"]
     all_rows = []
     per_platform = {}
 
@@ -78,7 +78,7 @@ def main():
     return out_file
 
 
-PLATFORM_NAMES = {"didi": "滴滴", "meituan": "美团", "anti": "蚂蚁", "quark": "夸克", "bytedance": "字节跳动", "tencent": "腾讯", "lenovo": "联想"}
+PLATFORM_NAMES = {"didi": "滴滴", "meituan": "美团", "anti": "蚂蚁", "quark": "夸克", "bytedance": "字节跳动", "tencent": "腾讯", "lenovo": "联想", "inspur": "浪潮"}
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@
 
 ## 功能概览
 
-- 采集 **6 个平台**：美团、滴滴、腾讯、字节跳动、蚂蚁、夸克
+- 采集 **8 个平台**：美团、滴滴、腾讯、字节跳动、浪潮、蚂蚁、联想、夸克
 - 按各平台**官方岗位类别**精准抓取（销售 + 部分相关类别）
 - 自动抓取每个岗位的**岗位职责 + 任职要求**
 - 统一合并为 **Excel 汇总表**，含各平台独立 sheet 和数据统计
@@ -17,7 +17,9 @@ sales/
 ├── collect_meituan.py     美团（销售类别，全国）
 ├── collect_tencent.py     腾讯（销售、服务与支持/战略与投资）
 ├── collect_bytedance.py   字节跳动（销售/市场/IT支持，深圳）
+├── collect_inspur.py      浪潮（社会招聘销售类，Playwright+Angular scope）
 ├── collect_anti.py        蚂蚁（官方API关键词 key=销售）
+├── collect_lenovo.py      联想（中国社会招聘，销售关键词过滤）
 ├── collect_quark.py       夸克（全量岗位 + 本地销售关键词过滤）
 ├── merge_to_excel.py      合并所有平台数据 → Excel
 ├── bytedance_config.json  字节签名/cookie（会过期，勿提交到 git）
@@ -29,14 +31,16 @@ sales/
 
 ```bash
 # 1. 安装依赖（一次性）
-pip3 install requests pandas openpyxl
+pip3 install requests pandas openpyxl playwright
 
 # 2. 采集各平台（可只跑需要的平台）
 python3 sales/collect_didi.py
 python3 sales/collect_meituan.py
 python3 sales/collect_tencent.py
 python3 sales/collect_bytedance.py
+python3 sales/collect_inspur.py      # 需要 Playwright Chromium（playwright install chromium）
 python3 sales/collect_anti.py
+python3 sales/collect_lenovo.py
 python3 sales/collect_quark.py
 
 # 3. 合并导出 Excel
@@ -53,7 +57,9 @@ python3 sales/merge_to_excel.py
 | 滴滴 | collect_didi.py | 销售/商业分析/职能与支持/战略/安全 | 无 |
 | 腾讯 | collect_tencent.py | 销售、服务与支持 / 战略与投资 | 无 |
 | 字节跳动 | collect_bytedance.py | 销售/市场/IT支持（深圳） | **签名+cookie，会过期** |
+| 浪潮 | collect_inspur.py | 社会招聘销售类（全量41个） | 无（Playwright 渲染） |
 | 蚂蚁 | collect_anti.py | key=销售 关键词搜索 | cookie（5月份至今有效） |
+| 联想 | collect_lenovo.py | 中国社会招聘（销售关键词过滤） | 无 |
 | 夸克 | collect_quark.py | 全量+本地过滤 | cookie + CSRF |
 
 ## 字节跳动签名刷新（重要）
